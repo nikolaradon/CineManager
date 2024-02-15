@@ -17,6 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from cinemanager_app.views import (MovieListView, MovieView)
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('movies/', MovieListView.as_view()),
+    path('movies/<int:pk>/', MovieView.as_view()),
 ]
+
