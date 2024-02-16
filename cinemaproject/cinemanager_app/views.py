@@ -1,12 +1,12 @@
-from django.shortcuts import render
 from .models import Movie
 from .serializers import MovieSerializer
-from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-# Create your views here.
+from django.http import Http404
 
+
+# Create your views here.
 
 
 class MovieListView(APIView):
@@ -28,14 +28,14 @@ class MovieView(APIView):
         try:
             return Movie.objects.get(pk=pk)
         except Movie.DoesNotExist:
-            raise status.HTTP_404_NOT_FOUND
+            raise Http404
 
-    def get(self, request):
+    def get(self, request, pk):
         movie = self.get_object(pk)
         serializer = MovieSerializer(movie)
         return Response(serializer.data)
 
-    def put(self, request):
+    def put(self, request, pk):
         movie = self.objects.get(pk=pk)
         serializer = MovieSerializer(movie, data=request.data)
         if serializer.is_valid():
@@ -44,7 +44,7 @@ class MovieView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-    def delete(self, request):
+    def delete(self, request, pk):
         movie = self.get_object(pk=pk)
         movie.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
