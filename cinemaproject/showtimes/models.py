@@ -1,5 +1,5 @@
 from django.db import models
-from cinemanager_app.models import Movie, Cinema
+from cinemanager_app.models import Movie
 
 # Create your models here.
 class Cinema(models.Model):
