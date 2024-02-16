@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'cinemanager_app',
+    'showtimes',
 ]
 
 MIDDLEWARE = [
